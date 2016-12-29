@@ -33,9 +33,43 @@ outputs
 }
 ```
 
-Currently the following fields are obfuscated:
+## Configuration
+
+### Secret Fields
+By default the following fields are obfuscated:
 
 `password`, `pass`, `token`, `auth`, `secret`, `passphrase`.
+
+You can also pass in an array of custom fields in an options object:
+
+```js
+var hide = require('hide-secrets')
+
+var obj = {
+  innerObject: {
+    topSecret: 'abc123',
+    email: 'ben@npmjs.com',
+  },
+}
+
+console.log(hide(obj, {
+  badWords: ['topSecret']
+}))
+
+```
+
+outputs
+
+```js
+{
+  innerObject: {
+    topSecret: '[SECRET]',
+    email: 'ben@npmjs.com',
+  },
+}
+```
+
+Note that passing in custom `badWords` overwrites the defaults.
 
 ## License
 
