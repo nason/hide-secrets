@@ -71,6 +71,33 @@ outputs
 
 Note that passing in custom `badWords` overwrites the defaults.
 
+### Replacement Value
+
+By default secret values are replaced with the string `"[SECRET]"`
+
+You can customize this by passing a custom `replacement` value in options:
+
+```js
+var hide = require('hide-secrets')
+
+var obj = {
+  secret: 'super secret'
+}
+
+console.log(hide(obj, {
+  replacement: '***'
+}))
+
+```
+
+outputs
+
+```js
+{
+  secret: '***'
+}
+```
+
 ## License
 
 ISC

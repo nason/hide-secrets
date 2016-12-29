@@ -10,21 +10,22 @@ var defaultBadWords = [
   'card'
 ]
 
-var replacement = '[SECRET]'
+var defaultReplacement = '[SECRET]'
 
 module.exports = function (obj, opts) {
   opts = opts || {}
   opts.badWords = opts.badWords || defaultBadWords
+  opts.replacement = opts.replacement || defaultReplacement
 
   return traverse(obj).map(function (n) {
     for (var i = 0, key; (key = this.path[i]) !== undefined; i++) {
       if (~opts.badWords.indexOf(key)) {
-        if (typeof n === 'string') return replaceString(n)
+        if (typeof n === 'string') return replaceString(n, opts)
       }
     }
   })
 }
 
-function replaceString (str) {
-  if (str) return replacement
+function replaceString (str, opts) {
+  if (str) return opts.replacement
 }

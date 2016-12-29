@@ -109,7 +109,17 @@ tap.test('it uses custom bad words', function (t) {
     identity: '-----BEGIN RSA PRIVATE KEY-----'
   }
 
-  var out = secret(obj, { badWords: 'identity' })
+  var out = secret(obj, { badWords: ['identity'] })
   t.equal(out.identity, '[SECRET]')
+  t.end()
+})
+
+tap.test('it uses custom replacement value', function (t) {
+  var obj = {
+    secret: 'abc123'
+  }
+
+  var out = secret(obj, { replacement: '***' })
+  t.equal(out.secret, '***')
   t.end()
 })
